@@ -1,0 +1,21 @@
+body {
+    background: #feadb9;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #D6A4A4, #DAE2F8); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #D6A4A4, #DAE2F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.header {
+    color: #DAE2F8;
+    background-color: #9799ba;
+    padding: 20px 0px 20px 0px;
+}
+
+.first-page {
+    margin-top: 100px;
+}
+
+.waifu {
+    max-width: 30%;
+    height: auto;
+    margin: auto;
+}
