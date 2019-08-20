@@ -7,35 +7,32 @@ const app = express();
 const port = 3000;
 
 app.get('/courses', (req, res) => {
-  res.send("Kurser");
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials.
-    auth.authorize(JSON.parse(content), services.getCourses);
+    auth.authorize(JSON.parse(content), services.getCourses, res);
   });
 });
 
 app.get('/tests', (req, res) => {
-  res.send("Prov");
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials.
-    auth.authorize(JSON.parse(content), services.getTests);
+    auth.authorize(JSON.parse(content), services.getTests, res);
   });
 });
 
 app.get('/assignments', (req, res) => {
-  res.send("Läxor");
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials.
-    auth.authorize(JSON.parse(content), services.getAssignments);
+    auth.authorize(JSON.parse(content), services.getAssignments, res);
   });
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
+  console.log(`Listening on port ${port}!`);
 });

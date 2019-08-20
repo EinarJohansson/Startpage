@@ -5,16 +5,13 @@ module.exports = {
      * Lists the first 10 courses the user has access to.
      * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
      */
-    getCourses: (auth) => {
+    getCourses: (auth, serverRes) => {
         const classroom = google.classroom({ version: 'v1', auth });
-        classroom.courses.list({
-            pageSize: 10,
-        }, (err, res) => {
+        classroom.courses.list((err, res) => {
             if (err) return console.error('The API returned an error: ' + err);
             const courses = res.data.courses;
             if (courses && courses.length) {
-                console.log('Courses:');
-                console.log(courses);
+                serverRes.send(courses);
             } else {
                 console.log('No courses found.');
             }
@@ -24,7 +21,7 @@ module.exports = {
     * Lists the next 10 events on the user's primary calendar.
     * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
     */
-    getTests: (auth) => {
+    getTests: (auth, serverRes) => {
         const calendar = google.calendar({ version: 'v3', auth });
         // Fetching all of the user's calendars
         calendar.calendarList.list((err, res) => {
@@ -45,8 +42,7 @@ module.exports = {
                         if (err) return console.log('The API returned an error: ' + err);
                         const events = res.data.items;
                         if (events.length) {
-                            console.log('Upcoming 10 tests:');
-                            console.log(events);
+                            serverRes.send(events)
                         } else {
                             console.log('No upcoming tests found.');
                         }
@@ -55,7 +51,7 @@ module.exports = {
             });
         });
     },
-    getAssignments: (auth) => {
+    getAssignments: (auth, serverRes) => {
         const calendar = google.calendar({ version: 'v3', auth });
         // Fetching all of the user's calendars
         calendar.calendarList.list((err, res) => {
@@ -74,8 +70,7 @@ module.exports = {
                         if (err) return console.log('The API returned an error: ' + err);
                         const events = res.data.items;
                         if (events.length) {
-                            console.log('Upcoming 10 assignments:');
-                            console.log(events);
+                            serverRes.send(events)
                         } else {
                             console.log('No upcoming assignments found.');
                         }
