@@ -1,0 +1,19 @@
+{
+  "name": "startpage",
+  "version": "1.0.0",
+  "description": "My startpage",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "startpage"
+  ],
+  "author": "Einar Johansson",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "googleapis": "^39.2.0",
+    "nodemon": "^1.19.1"
+  }
+}
