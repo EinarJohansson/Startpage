@@ -14,8 +14,23 @@ body {
     margin-top: 100px;
 }
 
+.calendar {
+    background: #FFCACA;
+    box-shadow: 10px 10px 5px grey;
+}
+
+.calendar-header {
+    width: 100%;
+    background: #5B5B6C;
+    color: white;
+}
+
 .waifu {
     max-width: 30%;
     height: auto;
     margin: auto;
+}
+
+.waifu > img {
+    box-shadow: 10px 10px 5px grey;
 }
