@@ -4,14 +4,27 @@ body {
     background: linear-gradient(to right, #D6A4A4, #DAE2F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.header {
-    color: #DAE2F8;
-    background-color: #9799ba;
-    padding: 20px 0px 20px 0px;
+thead {
+    width: 100%;
+    background: #5B5B6C;
+    color: white;
+    font-family: 'Lexend Exa', sans-serif;
 }
 
-.first-page {
-    margin-top: 100px;
+tbody {
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: -1px;
+}
+
+.clock {
+    font-family: 'Roboto Mono', monospace;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #5B5B6C
+}
+
+.hidden {
+    display: none;
 }
 
 .calendar {
@@ -19,18 +32,7 @@ body {
     box-shadow: 10px 10px 5px grey;
 }
 
-.calendar-header {
-    width: 100%;
-    background: #5B5B6C;
-    color: white;
-}
-
-.waifu {
-    max-width: 30%;
-    height: auto;
-    margin: auto;
-}
-
-.waifu > img {
+.col-md-4 > img {
     box-shadow: 10px 10px 5px grey;
+    margin-bottom: 50px;
 }

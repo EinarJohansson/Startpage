@@ -8,16 +8,7 @@ const port = 3000;
 
 app.use(express.static('./public'));
 
-app.get('/courses', (req, res) => {
-  // Load client secrets from a local file.
-  fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
-    // Authorize a client with credentials.
-    auth.authorize(JSON.parse(content), services.getCourses, res);
-  });
-});
-
-app.get('/tests', (req, res) => {
+app.get('/prov', (req, res) => {
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
@@ -26,7 +17,7 @@ app.get('/tests', (req, res) => {
   });
 });
 
-app.get('/assignments', (req, res) => {
+app.get('/uppgifter', (req, res) => {
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);

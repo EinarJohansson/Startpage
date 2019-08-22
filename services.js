@@ -2,23 +2,7 @@ const { google } = require('googleapis');
 
 module.exports = {
     /**
-     * Lists the first 10 courses the user has access to.
-     * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
-     */
-    getCourses: (auth, serverRes) => {
-        const classroom = google.classroom({ version: 'v1', auth });
-        classroom.courses.list((err, res) => {
-            if (err) return console.error('The API returned an error: ' + err);
-            const courses = res.data.courses;
-            if (courses && courses.length) {
-                serverRes.send(courses);
-            } else {
-                console.log('No courses found.');
-            }
-        });
-    },
-    /**
-    * Lists the next 10 events on the user's primary calendar.
+    * Get the next 10 events on the test calendar.
     * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
     */
     getTests: (auth, serverRes) => {
@@ -42,7 +26,7 @@ module.exports = {
                         if (err) return console.log('The API returned an error: ' + err);
                         const events = res.data.items;
                         if (events.length) {
-                            serverRes.send(events)
+                            serverRes.send(events);
                         } else {
                             console.log('No upcoming tests found.');
                         }
@@ -51,6 +35,10 @@ module.exports = {
             });
         });
     },
+    /**
+    * Get the next 10 events on the assignments calendar.
+    * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+    */
     getAssignments: (auth, serverRes) => {
         const calendar = google.calendar({ version: 'v3', auth });
         // Fetching all of the user's calendars
