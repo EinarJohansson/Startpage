@@ -28,7 +28,7 @@ module.exports = {
                         if (events.length) {
                             serverRes.send(events);
                         } else {
-                            console.log('No upcoming tests found.');
+                            serverRes.sendStatus(404)
                         }
                     });
                 }
@@ -60,7 +60,7 @@ module.exports = {
                         if (events.length) {
                             serverRes.send(events)
                         } else {
-                            console.log('No upcoming assignments found.');
+                            serverRes.sendStatus(404)
                         }
                     });
                 }
