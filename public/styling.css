@@ -4,6 +4,14 @@ body {
     background: linear-gradient(to right, #D6A4A4, #DAE2F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+table {
+    table-layout: fixed;
+}
+
+td {
+    font-size: 12px;
+}
+
 .clock {
     font-family: 'Roboto Mono', monospace;
     margin-top: 50px;

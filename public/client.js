@@ -1,10 +1,10 @@
 $(document).ready(() => {
   startTime();
 
-  createCalendar('http://localhost:3000/prov');
-  createCalendar('http://localhost:3000/uppgifter');
+  getCoursework();
+  getCalendars();
 
-  $('.table').fadeIn(1000).removeClass('hidden');
+  $('.table').fadeIn(2000).removeClass('hidden');
 
   $('.form-control-lg').keypress(e => {
     if (e.which == 13) {
@@ -14,63 +14,121 @@ $(document).ready(() => {
   });
 });
 
-function createCalendar(url) {
-  var tableindex = (url == 'http://localhost:3000/prov') ? 0 : 1;
-  var tablebody = document.getElementsByTagName('tbody')[tableindex];
-
+function getCoursework() {
+  var tablebody = document.getElementsByTagName('tbody')[0];
+  var url = 'http://localhost:3000/coursework';
   $.ajax({
     url: url,
     type: 'GET',
+    dataType: "json",
     success: (events) => {
-      events.forEach((event) => {
-        var row = document.createElement('tr');
+      console.log(events);
 
-        var subject = document.createElement('td');
-        var name = document.createElement('td');
-        var day = document.createElement('td');
-        var time = document.createElement('td');
+      const kurser = Object.keys(events)
+      for (const kurs of kurser) {
 
-        subject.innerText = event.description;
-        name.innerText = event.summary;
+        const uppgifter = Object.keys(events[kurs])
+        for (const uppgift of uppgifter) {
+          var row = document.createElement('tr');
 
-        if (event.start.dateTime) {
-          start = new Date(event.start.dateTime);
-          end = new Date(event.end.dateTime);
+          var course = document.createElement('td');
+          var info = document.createElement('td');
+          var name = document.createElement('td');
+          var day = document.createElement('td');
+          var time = document.createElement('td');
 
-          day.innerText = start.getFullYear() + '-' + ('0' + (start.getMonth() + 1)) + '-' + start.getDate();
+          course.className = 'text-truncate';
+          info.className = 'text-truncate';
+          name.className = 'text-truncate';
+          day.className = 'text-truncate';
+          time.className = 'text-truncate';
 
-          if (tableindex == 0) {
-            time.innerText = start.getHours() + ':' + start.getMinutes() + ' - ' + end.getHours() + ':' + end.getMinutes();
+          course.innerText = kurs;
+          info.innerText = "Uppgift";
+
+          name.innerHTML = uppgift;
+
+          if (events[kurs][uppgift].date) {
+            var date = new Date(events[kurs][uppgift].date);
+
+            day.innerText = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)) + '-' + date.getDate();
+            time.innerText = date.getHours() + ':' + date.getMinutes();
+          } else {
+            day.innerText = 'Ingen bestämd dag';
+            time.innerText = 'Ingen bestämd tid';
           }
-          else if (tableindex == 1) {
-            time.innerText = start.getHours() + ':' + start.getMinutes();
-          }
 
+          row.appendChild(course);
+          row.appendChild(info);
+          row.appendChild(name);
+          row.appendChild(day);
+          row.appendChild(time);
+
+          tablebody.appendChild(row);
         }
-        else if (event.start.date) {
-          day.innerText = event.start.date;
-          time.innerText = 'Ingen bestämd tid';
-        }
-
-        row.appendChild(subject);
-        row.appendChild(name);
-        row.appendChild(day);
-        row.appendChild(time);
-
-        $(row).prependTo(tablebody);
-      });
-    },
-    error: (err) => {
-      var row = document.createElement('tr');
-      var message = document.createElement('td');
-
-      message.innerHTML = (tableindex == 0) ? 'Inga prov \u{1F64F}' : 'Inga inlämmningar \u{1F605}';
-      message.colSpan = 4;
-      message.className = "text-center";
-
-      row.appendChild(message);
-      $(row).prependTo(tablebody);
+      }
     }
+  });
+}
+
+
+function getCalendars() {
+  var tablebody = document.getElementsByTagName('tbody')[0];
+  var urls = ['http://localhost:3000/prov', 'http://localhost:3000/uppgifter'];
+
+  urls.forEach((url) => {
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: "json",
+      success: (events) => {
+        events.forEach((event) => {
+          var row = document.createElement('tr');
+
+          var course = document.createElement('td');
+          var info = document.createElement('td');
+          var name = document.createElement('td');
+          var day = document.createElement('td');
+          var time = document.createElement('td');
+
+          course.className = 'text-truncate';
+          info.className = 'text-truncate';
+          name.className = 'text-truncate';
+          day.className = 'text-truncate';
+          time.className = 'text-truncate';
+
+          course.innerText = event.description;
+          info.innerText = event.organizer.displayName;
+          name.innerText = event.summary;
+
+          if (event.start.dateTime) {
+            start = new Date(event.start.dateTime);
+            end = new Date(event.end.dateTime);
+
+            day.innerText = start.getFullYear() + '-' + ('0' + (start.getMonth() + 1)) + '-' + start.getDate();
+
+            if (info.innerText == "Prov") {
+              time.innerText = start.getHours() + ':' + start.getMinutes() + ' - ' + end.getHours() + ':' + end.getMinutes();
+            }
+            else if (info.innerText == "Uppgift") {
+              time.innerText = start.getHours() + ':' + start.getMinutes();
+            }
+          }
+          else if (event.start.date) {
+            day.innerText = event.start.date;
+            time.innerText = 'Ingen bestämd tid';
+          }
+
+          row.appendChild(course);
+          row.appendChild(info);
+          row.appendChild(name);
+          row.appendChild(day);
+          row.appendChild(time);
+
+          tablebody.appendChild(row);
+        });
+      }
+    });
   });
 }
 
