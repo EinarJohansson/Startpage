@@ -46,7 +46,7 @@ module.exports = {
             const calendars = res.data.items;
             calendars.forEach(cal => {
                 // Looking for the calendar with information about my assignments
-                if (cal.summary == "Läxor") {
+                if (cal.summary == "Uppgifter") {
                     // List the 10 next events in that calendar
                     calendar.events.list({
                         calendarId: cal.id,

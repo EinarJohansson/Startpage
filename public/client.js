@@ -12,17 +12,6 @@ $(document).ready(() => {
       window.location.href = "https://google.com/search?q=" + query;
     }
   });
-
-  // Adding an event handler to the first forms
-  $('.post').keypress(form => {
-    if (form.which == 13) {
-      var calendar = form.target.parentElement.parentElement.parentElement.className;
-      var forms = form.target.parentElement.parentElement.children;
-
-      createEvent(calendar, forms);
-    }
-  });
-
 });
 
 function createCalendar(url) {
@@ -68,14 +57,14 @@ function createCalendar(url) {
         row.appendChild(day);
         row.appendChild(time);
 
-        tablebody.appendChild(row);
+        $(row).prependTo(tablebody);
       });
     },
     error: (err) => {
       var row = document.createElement('tr');
       var message = document.createElement('td');
 
-      message.innerHTML = (tableindex == 0) ? 'Inga prov \u{1F64F}' : 'Inga inlämmningar \u{1F973}'
+      message.innerHTML = (tableindex == 0) ? 'Inga prov \u{1F64F}' : 'Inga inlämmningar \u{1F605}';
       message.colSpan = 4;
       message.className = "text-center";
 
@@ -104,35 +93,4 @@ function checkTime(i) {
     i = '0' + i; // add a zero in front of numbers < 10
   }
   return i;
-}
-
-function showForm(button) {
-  var tablebody = button.parentElement.parentElement.parentElement;
-  var row = button.parentElement.parentElement;
-  $(row.firstElementChild).remove();
-  $(row.children).show();
-
-  // append a new row for adding a event
-  var newrow = document.createElement('tr');
-
-  newrow.innerHTML = (tablebody.className == "prov") ? "<td class='text-center' colspan='4'><button type='button' class='btn btn-light btn-sm' onclick='showForm(this)'>➕</button></td><td class='hidden'><input type='Text' class='form-control post' placeholder='Kurs'></td><td class='hidden'><input type='Text' class='form-control post' placeholder='Prov'></td><td class='hidden'><input type='Text' class='form-control post' placeholder='Dag'></td><td class='hidden'><input type='Text' class='form-control post' placeholder='Tid'></td>" : "<td class='text-center' colspan='4'><button type='button' class='btn btn-light btn-sm' onclick='showForm(this)'>➕</button></td><td class='hidden'><input type='Text' class='form-control post' placeholder='Kurs'></td><td class='hidden'><input type='Text' class='form-control post' placeholder='Uppgift'></td><td class='hidden'><input type='Text' class='form-control post' placeholder='Dag'></td><td class='hidden'><input type='Text' class='form-control post' placeholder='Tid'></td>"
-
-  // Set an event handler on the newly created forms
-  for (let i = 1; i < newrow.childElementCount; i++) {
-    $(newrow.children[i]).keypress(form => {
-      if (form.which == 13) {
-        var calendar = form.target.parentElement.parentElement.parentElement.className;
-        var forms = form.target.parentElement.parentElement.children;
-
-        createEvent(calendar, forms);
-      }
-    });
-  }
-
-  tablebody.appendChild(newrow);
-}
-
-function createEvent(calendar, forms) {
-  console.log("nu e de ba att inserta i " + calendar + " kalendern \u{1F609}");
-  console.log(forms);
 }

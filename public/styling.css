@@ -4,18 +4,6 @@ body {
     background: linear-gradient(to right, #D6A4A4, #DAE2F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-thead {
-    width: 100%;
-    background: #5B5B6C;
-    color: white;
-    font-family: 'Lexend Exa', sans-serif;
-}
-
-tbody {
-    font-family: 'Roboto Mono', monospace;
-    letter-spacing: -1px;
-}
-
 .clock {
     font-family: 'Roboto Mono', monospace;
     margin-top: 50px;
@@ -30,6 +18,18 @@ tbody {
 .calendar {
     background: #FFCACA;
     box-shadow: 10px 10px 5px grey;
+}
+
+.calendar > thead {
+    width: 100%;
+    background: #5B5B6C;
+    color: white;
+    font-family: 'Lexend Exa', sans-serif;
+}
+
+.calendar > tbody {
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: -1px;
 }
 
 .col-md-4 > img {
