@@ -37,13 +37,29 @@ function createCalendar(url) {
           start = new Date(event.start.dateTime);
           end = new Date(event.end.dateTime);
 
-          day.innerText = start.getFullYear() + '-' + ('0' + (start.getMonth() + 1)) + '-' + start.getDate();
+          if (start.getMonth() + 1 < 10)
+            day.innerText = start.getFullYear() + '-' + ('0' + (start.getMonth() + 1)) + '-' + start.getDate();
+          else
+            day.innerText = start.getFullYear() + '-' + (start.getMonth() + 1) + '-' + start.getDate();
 
           if (tableindex == 0) {
-            time.innerText = start.getHours() + ':' + start.getMinutes() + ' - ' + end.getHours() + ':' + end.getMinutes();
+            if (start.getMinutes() < 10)
+              start = start.getHours() + ':' + start.getMinutes() + '0';
+            else
+              start = start.getHours() + ':' + start.getMinutes();
+
+            if (end.getMinutes() < 10)
+              end = end.getHours() + ':' + end.getMinutes() + '0';
+            else
+              end = end.getHours() + ':' + end.getMinutes();
+
+            time.innerText = start + ' - ' + end;
           }
           else if (tableindex == 1) {
-            time.innerText = start.getHours() + ':' + start.getMinutes();
+            if (start.getMinutes() < 10)
+              time.innerText = start.getHours() + ':' + start.getMinutes() + '0';
+            else
+              time.innerText = start.getHours() + ':' + start.getMinutes();
           }
 
         }
@@ -57,7 +73,7 @@ function createCalendar(url) {
         row.appendChild(day);
         row.appendChild(time);
 
-        $(row).prependTo(tablebody);
+        tablebody.appendChild(row);
       });
     },
     error: (err) => {
@@ -69,7 +85,7 @@ function createCalendar(url) {
       message.className = "text-center";
 
       row.appendChild(message);
-      $(row).prependTo(tablebody);
+      tablebody.appendChild(row);
     }
   });
 }
